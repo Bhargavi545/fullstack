@@ -1,0 +1,350 @@
+DML
+
+1. Change salary of employee 115 to 8000 if the existing salary is less than 6000.
+
+1.mysql> UPDATE EMPLOYEES SET SALARY = 8000 WHERE EMPLOYEE_ID = 115 AND SALARY < 6000;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+2. Insert a new employee into employees with all the required details.
+
+2.mysql> INSERT INTO employees VALUES(207, 'bhagi', 'nagina', 'hyd', '515.123.4568', '1989-09-21', 'AD_VP', 17000 , NULL, 100, 90);
+Query OK, 1 row affected (0.27 sec)
+
+3. Delete department 20.
+
+delete from department where department_id=20;
+
+4. Change job ID of employee 110 to IT_PROG if the employee belongs to department 10 and the existing job ID does not start with IT.
+
+4. update employees set job_id ='it_prog' where employee_id=110 and department_id=10 and  not job_id like 'it%';
+Query OK, 0 rows affected (0.05 sec)
+ 1.select * from departments where manager_id in(select employee_id from employees where first_name='john');
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            80 | Sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+1 row in set (0.00 sec)
+
+5. Insert a row into departments table with manager ID 120 and location ID in any location ID for city Tokyo.
+
+mysql> INSERT INTO departments VALUES( 290,'sports',120,1500);
+Query OK, 1 row affected (0.09 sec)
+
+6. Display job title, employee ID, number of days between ending date and starting date for all jobs in department 30 from job history.
+
+mysql> select employee_id,job_title,end_date-start_date days from job_history natural join jobs WHERE DEPARTMENT_ID=30;
+Empty set (0.00 sec)
+
+DDL WITH CONSTRAINTS
+
+1.Table ---> Customer 
+	custId, firstName,lastName,age,city, mobileNumber, dob
+		Add the Constraints 
+		custId is Primary Key 
+		firstName not null
+		age must be greater than 21
+		mobile must be unique  
+
+1. CREATE TABLE customer(custid VARCHAR(6),fname VARCHAR(30) not null,ltname VARCHAR(30),city VARCHAR(15),mobileno VARCHAR(10) unique,age varchar(10) check(age>21) ,dob DATE,CONSTRAINT customer_custid_pk PRIMARY KEY(custid));
+mysql> desc customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custid   | varchar(6)  | NO   | PRI | NULL    |       |
+| fname    | varchar(30) | NO   |     | NULL    |       |
+| ltname   | varchar(30) | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
+| mobileno | varchar(10) | YES  | UNI | NULL    |       |
+| age      | varchar(10) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+2.Table ----> Branch 
+		branchId, branchName, city 
+		Add the Constraints 
+		branchId is Primary Key 
+		branchName not null
+		city not null	
+
+2.mysql>  CREATE TABLE branch(bid VARCHAR(6),bname VARCHAR(30),bcity VARCHAR(30) not null,CONSTRAINT branch_bid_pk PRIMARY KEY(bid));
+mysql> desc branch;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | varchar(6)  | NO   | PRI | NULL    |       |
+| bname | varchar(30) | YES  |     | NULL    |       |
+| bcity | varchar(30) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+3.Table -----> Account 
+		accountNumber, openingBalance, typeOfAccount, status,BankId,CustId
+		Add the Constraints 
+		accountNumber is primary key 
+		openingBalance must be greater than 5000
+		typeOfAccount must be saving/current
+		BankId is foreign key refer to BranchId(Primary key) Branch table 
+		CustId is foreign key refer to Customer(Primary key) Customer table 
+
+3. CREATE TABLE account(acnumber VARCHAR(6),custid  VARCHAR(6),bid VARCHAR(6),opening_balance INT(7),aod DATE,atype VARCHAR(10),astatus VARCHAR(10),CONSTRAINT account_acnumber_pk PRIMARY KEY(acnumber),CONSTRAINT account_custid_fk FOREIGN KEY(custid) REFERENCES customer(custid),CONSTRAINT account_bid_fk FOREIGN KEY(bid) REFERENCES branch(bid));
+Query OK, 0 rows affected, 1 warning (0.81 sec)
+mysql> desc customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custid   | varchar(6)  | NO   | PRI | NULL    |       |
+| fname    | varchar(30) | NO   |     | NULL    |       |
+| ltname   | varchar(30) | YES  |     | NULL    |       |
+| city     | varchar(15) | YES  |     | NULL    |       |
+| mobileno | varchar(10) | YES  | UNI | NULL    |       |
+| age      | varchar(10) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.16 sec)
+
+
+4. Table ----> Transaction 
+		transactionId, transactionDate, MediumOfTransaction, TransactionAmount 
+		Add the Constraints 
+		transactionId is primary key 	
+
+4.mysql> CREATE TABLE transaction(transaction_id int,medium_of_transaction VARCHAR(20),transaction_amount INT(7),transaction_date date,CONSTRAINT trandetails_id_pk PRIMARY KEY(transaction_id));
+Query OK, 0 rows affected, 1 warning (1.32 sec)
+
+mysql> desc transaction;
++-----------------------+-------------+------+-----+---------+-------+
+| Field                 | Type        | Null | Key | Default | Extra |
++-----------------------+-------------+------+-----+---------+-------+
+| transaction_id        | int         | NO   | PRI | NULL    |       |
+| medium_of_transaction | varchar(20) | YES  |     | NULL    |       |
+| transaction_amount    | int         | YES  |     | NULL    |       |
+| transaction_date      | date        | YES  |     | NULL    |       |
++-----------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.14 sec)
+
+
+5.Table ----> Loan 
+		LoanId, loanAmount, customerId and bankdId 
+		Add the Constraints 
+		loadId is primary key 
+		loanAmount must be +ve 
+		BankId is foreign key refer to BranchId(Primary key) Branch table
+
+
+5.  CREATE TABLE loan(custid VARCHAR(6),loan_id varchar (10),bid VARCHAR(6),loan_amount INT(7),CONSTRAINT loan_customer_custid_bid_pk PRIMARY KEY(custid,bid),CONSTRAINT loan_custid_fk FOREIGN KEY(custid) REFERENCES  customer(custid),CONSTRAINT loan_bid_fk FOREIGN KEY(bid) REFERENCES  branch(bid) );
+Query OK, 0 rows affected, 1 warning (1.98 sec)
+
+mysql> desc loan;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| custid      | varchar(6)  | NO   | PRI | NULL    |       |
+| loan_id     | varchar(10) | YES  |     | NULL    |       |
+| bid         | varchar(6)  | NO   | PRI | NULL    |       |
+| loan_amount | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.09 sec)
+
+SUB QUERY
+
+
+1. Display details of departments managed by ‘John’.
+
+mysql>  SELECT * FROM DEPARTMENTS WHERE MANAGER_ID IN (SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE FIRST_NAME='john');
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            80 | Sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+1 row in set (0.00 sec)
+2. Display employees who did not do any job in the past.
+
+2.mysql> select * from employees where employee_id not in(select employee_id from job_history);
++-------------+-------------+-------------+----------+--------------------+------------+------------+--------+----------------+------------+---------------+
+| employee_id | first_name  | last_name   | email    | phone_int          | hire_date  | job_id     | salary | commission_pct | manager_id | department_id |
++-------------+-------------+-------------+----------+--------------------+------------+------------+--------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-27 | AD_PRES    |  24000 |           NULL |       NULL |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1990-01-03 | IT_PROG    |   9000 |           NULL |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1991-05-21 | IT_PROG    |   6000 |           NULL |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1997-06-25 | IT_PROG    |   4800 |           NULL |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1998-02-05 | IT_PROG    |   4800 |           NULL |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1999-02-07 | IT_PROG    |   4200 |           NULL |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1994-08-17 | FI_MGR     |  12000 |           NULL |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1994-07-16 | FI_ACCOUNT |   9000 |           NULL |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1997-09-28 | FI_ACCOUNT |   8200 |           NULL |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1997-08-30 | FI_ACCOUNT |   7700 |           NULL |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1998-03-07 | FI_ACCOUNT |   7800 |           NULL |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1999-12-07 | FI_ACCOUNT |   6900 |           NULL |        108 |           100 |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1995-05-18 | PU_CLERK   |   8000 |           NULL |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1997-12-24 | PU_CLERK   |   2900 |           NULL |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1997-07-24 | PU_CLERK   |   2800 |           NULL |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1998-11-15 | PU_CLERK   |   2600 |           NULL |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1999-08-10 | PU_CLERK   |   2500 |           NULL |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1996-07-18 | ST_MAN     |   8000 |           NULL |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1997-04-10 | ST_MAN     |   8200 |           NULL |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1997-10-10 | ST_MAN     |   6500 |           NULL |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1999-11-16 | ST_MAN     |   5800 |           NULL |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1997-07-16 | ST_CLERK   |   3200 |           NULL |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1998-09-28 | ST_CLERK   |   2700 |           NULL |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1999-01-14 | ST_CLERK   |   2400 |           NULL |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 2000-03-08 | ST_CLERK   |   2200 |           NULL |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1997-08-20 | ST_CLERK   |   3300 |           NULL |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1997-10-30 | ST_CLERK   |   2800 |           NULL |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1997-02-16 | ST_CLERK   |   2500 |           NULL |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1999-04-10 | ST_CLERK   |   2100 |           NULL |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1996-06-14 | ST_CLERK   |   3300 |           NULL |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1998-08-26 | ST_CLERK   |   2900 |           NULL |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1999-12-12 | ST_CLERK   |   2400 |           NULL |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 2000-02-06 | ST_CLERK   |   2200 |           NULL |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1995-07-14 | ST_CLERK   |   3600 |           NULL |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1997-10-26 | ST_CLERK   |   3200 |           NULL |        123 |            50 |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1998-02-12 | ST_CLERK   |   2700 |           NULL |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1998-04-06 | ST_CLERK   |   2500 |           NULL |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1995-10-17 | ST_CLERK   |   3500 |           NULL |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1997-01-29 | ST_CLERK   |   3100 |           NULL |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1998-03-15 | ST_CLERK   |   2600 |           NULL |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1998-07-09 | ST_CLERK   |   2500 |           NULL |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1996-10-01 | SA_MAN     |  14000 |            0.4 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1997-01-05 | SA_MAN     |  13500 |            0.3 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1997-03-10 | SA_MAN     |  12000 |            0.3 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1999-10-15 | SA_MAN     |  11000 |            0.3 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 2000-01-29 | SA_MAN     |  10500 |            0.2 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1997-01-30 | SA_REP     |  10000 |            0.3 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1997-03-24 | SA_REP     |   9500 |           0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1997-08-20 | SA_REP     |   9000 |           0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1998-03-30 | SA_REP     |   8000 |            0.2 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1998-12-09 | SA_REP     |   7500 |            0.2 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1999-11-23 | SA_REP     |   7000 |           0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1996-01-30 | SA_REP     |  10000 |           0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1996-03-04 | SA_REP     |   9500 |           0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1996-07-01 | SA_REP     |   9000 |           0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1997-03-10 | SA_REP     |   8000 |            0.3 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1997-12-15 | SA_REP     |   7500 |            0.3 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1998-11-03 | SA_REP     |   7000 |           0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1997-11-11 | SA_REP     |  10500 |           0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1999-03-19 | SA_REP     |   9500 |           0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 2000-01-24 | SA_REP     |   7200 |            0.1 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 2000-02-23 | SA_REP     |   6800 |            0.1 |        147 |            80 |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 2000-03-24 | SA_REP     |   6400 |            0.1 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 2000-04-21 | SA_REP     |   6200 |            0.1 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1997-03-11 | SA_REP     |  11500 |           0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1998-03-23 | SA_REP     |  10000 |            0.2 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1998-01-24 | SA_REP     |   9600 |            0.2 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1999-02-23 | SA_REP     |   7400 |           0.15 |        148 |            80 |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1999-03-24 | SA_REP     |   7300 |           0.15 |        148 |            80 |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 2000-04-21 | SA_REP     |   6100 |            0.1 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1996-05-11 | SA_REP     |  11000 |            0.3 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1997-03-19 | SA_REP     |   8800 |           0.25 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1998-04-23 | SA_REP     |   8400 |            0.2 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1999-05-24 | SA_REP     |   7000 |           0.15 |        149 |          NULL |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 2000-01-04 | SA_REP     |   6200 |            0.1 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1998-01-24 | SH_CLERK   |   3200 |           NULL |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1998-02-23 | SH_CLERK   |   3100 |           NULL |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1999-06-21 | SH_CLERK   |   2500 |           NULL |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 2000-02-03 | SH_CLERK   |   2800 |           NULL |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1996-01-27 | SH_CLERK   |   4200 |           NULL |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1997-02-20 | SH_CLERK   |   4100 |           NULL |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1998-06-24 | SH_CLERK   |   3400 |           NULL |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1999-02-07 | SH_CLERK   |   3000 |           NULL |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1997-06-14 | SH_CLERK   |   3800 |           NULL |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1997-07-13 | SH_CLERK   |   3600 |           NULL |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1998-07-11 | SH_CLERK   |   2900 |           NULL |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1999-12-19 | SH_CLERK   |   2500 |           NULL |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1996-02-04 | SH_CLERK   |   4000 |           NULL |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1997-03-03 | SH_CLERK   |   3900 |           NULL |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1998-06-01 | SH_CLERK   |   3200 |           NULL |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1999-03-17 | SH_CLERK   |   2800 |           NULL |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1998-04-24 | SH_CLERK   |   3100 |           NULL |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1998-05-23 | SH_CLERK   |   3000 |           NULL |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1999-06-21 | SH_CLERK   |   2600 |           NULL |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 2000-01-13 | SH_CLERK   |   2600 |           NULL |        124 |            50 |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1997-07-17 | MK_REP     |   6000 |           NULL |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1994-06-07 | HR_REP     |   6500 |           NULL |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1994-06-07 | PR_REP     |  10000 |           NULL |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1994-06-07 | AC_MGR     |  12000 |           NULL |        101 |           110 |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1994-06-07 | AC_ACCOUNT |   8300 |           NULL |        205 |           110 |
+|         207 | bhagi       | nagina      | hyd      | 515.123.4568       | 1989-09-21 | AD_VP      |  17000 |           NULL |        100 |            90 |
++-------------+-------------+-------------+----------+--------------------+------------+------------+--------+----------------+------------+---------------+
+101 rows in set (0.06 sec)
+
+3. Display job title and average salary for employees who did a job in the past.
+
+3.mysql> select job_title from jobs natural join employees where employee_id in (select employee_id from job_history);
++-------------------------------+
+| job_title                     |
++-------------------------------+
+| Administration Assistant      |
+| Administration Vice President |
+| Administration Vice President |
+| Marketing Manager             |
+| Purchasing Manager            |
+| Sales Representative          |
+| Stock Manager                 |
++-------------------------------+
+7 rows in set (0.05 sec)
+
+4. Display country name, city, and number of departments where department has more than 5 employees.
+
+4.select country_name,city,count(department_id) from countries join locations using(country_id)join departments using(location_id) where department_id in(select department_id from employees group by department_id having count(department_id)>5) group by country_name,city;
++--------------------------+---------------------+----------------------+
+| country_name             | city                | count(department_id) |
++--------------------------+---------------------+----------------------+
+| United States of America | South San Francisco |                    1 |
+| United States of America | Seattle             |                    2 |
+| United Kingdom           | Oxford              |                    1 |
++--------------------------+---------------------+----------------------+
+3 rows in set (0.06 sec)
+
+5. Display details of manager who manages more than 5 employees.
+
+5.mysql>  select first_name from  employees where employee_id in (select manager_id from employees group by manager_id having count(*)>5);
++------------+
+| first_name |
++------------+
+| Steven     |
+| Matthew    |
+| Adam       |
+| Payam      |
+| Shanta     |
+| Kevin      |
+| John       |
+| Karen      |
+| Alberto    |
+| Gerald     |
+| Eleni      |
++------------+
+11 rows in set (0.05 sec)
+
+6. Display details of current job for employees who worked as IT Programmers in the past.
+
+6.mysql> select * from jobs where job_id in(select job_id from employees where employee_id in (select employee_id from job_history where job_id='it_prog'));
++--------+-------------------------------+------------+------------+
+| job_id | job_title                     | min_salary | max_salary |
++--------+-------------------------------+------------+------------+
+| AD_VP  | Administration Vice President |      15000 |      30000 |
++--------+-------------------------------+------------+------------+
+1 row in set (0.04 sec)
+
+7. Display the details of employees drawing the highest salary in the department.
+
+7.mysql>  select * from employees  where salary=(select max(salary) from employees where department_id=department_id);
++-------------+------------+-----------+-------+--------------+------------+---------+--------+----------------+------------+---------------+
+| employee_id | first_name | last_name | email | phone_int    | hire_date  | job_id  | salary | commission_pct | manager_id | department_id |
++-------------+------------+-----------+-------+--------------+------------+---------+--------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING | 515.123.4567 | 1987-06-27 | AD_PRES |  24000 |           NULL |       NULL |            90 |
++-------------+------------+-----------+-------+--------------+------------+---------+--------+----------------+------------+---------------+
+1 row in set (0.00 sec)
+
+8. Display third highest salary of all employees
+
+8.mysql> select salary from employees e where 2=(select count(distinct salary)from employees where salary >e.salary);
++--------+
+| salary |
++--------+
+|  14000 |
++--------+
+1 row in set (0.01 sec)
