@@ -1,0 +1,470 @@
+1.ASSIGNMENT-1
+
+
+import java.util.Scanner;
+
+class Exam {
+ 
+	public static void main (String[] args) {
+			boolean doYou;
+		int total=0;
+		boolean en_completed =false;
+		boolean ma_completed =false;
+		boolean gk_completed =false;
+		int chioce;
+		Scanner sc=new Scanner(System.in);
+		do {
+			System.out.println("welcome to online exam");
+			System.out.println("Enter the test number");
+			int testChoice = sc.nextInt();
+			System.out.println("Choice entered is "+testChoice);
+			
+			switch (testChoice) {
+			case 1:
+				if(!en_completed) {
+				System.out.println("welcome to english exam");
+				System.out.println("correct the spelling:");
+				System.out.println("ans:1.criket 2.cricket 3.crickt");
+				Scanner scTest1=new Scanner(System.in);
+				int ansChoice1 = sc.nextInt();
+				if(ansChoice1 == 2) {
+					total = total+10;
+				}
+				
+				System.out.println("correct the spelling:");
+				System.out.println("ans:1.spicial 2.spcial 3.special");
+				Scanner scTest2 = new Scanner(System.in);
+				int ansChoice2 = scTest2.nextInt();
+				if(ansChoice2 == 3) {
+					total = total+10;
+				}
+				System.out.println("correct the spelling:");
+				System.out.println("ans:1.great 2.grat 3.grant");
+				Scanner scTest3 = new Scanner(System.in);
+				int ansChoice3 = scTest2.nextInt();
+				if(ansChoice2 == 1) {
+					total = total+10;
+				}
+				en_completed = true;
+				}else {
+					System.out.println("You have completed the test");
+				}
+				break;
+			case 2:
+				if(!ma_completed) {
+					System.out.println("welcome to maths exam");
+					System.out.println("who is father of maths:");
+					System.out.println("ans:1.sundar 2.williom 3.archimedes");
+					Scanner scTest1=new Scanner(System.in);
+					int ansChoice1 = sc.nextInt();
+					if(ansChoice1 == 3) {
+						total = total+10;
+					}
+					
+					System.out.println(" find 12*12:");
+					System.out.println("ans:1.144 2.176 3.229");
+					Scanner scTest2 = new Scanner(System.in);
+					int ansChoice2 = scTest2.nextInt();
+					if(ansChoice2 == 1) {
+						total = total+10;
+					}
+					System.out.println("who invented zero first in india:");
+					System.out.println("ans:1.varah 2.mayan 3.aryabatta");
+					Scanner scTest3 = new Scanner(System.in);
+					int ansChoice3 = scTest2.nextInt();
+					if(ansChoice2 == 3) {
+						total = total+10;
+					}
+					ma_completed = true;
+					}else {
+						System.out.println("You have completed the test");
+					}
+					break;
+			
+			case 3:
+				if(!gk_completed) {
+					System.out.println("welcome to Gk exam");
+					System.out.println("who is indian PM:");
+					System.out.println("ans:1.nirmala 2.pranab 3.narendramodi");
+					Scanner scTest1=new Scanner(System.in);
+					int ansChoice1 = sc.nextInt();
+					if(ansChoice1 == 3) {
+						total = total+10;
+					}
+					
+					System.out.println("who is indian cricket team captain:");
+					System.out.println("ans:1.rohit 2.dhoni 3.virat");
+					Scanner scTest2= new Scanner(System.in);
+					int ansChoice2 = scTest2.nextInt();
+					if(ansChoice2 == 3) {
+						total = total+10;
+					}
+					System.out.println("national sports?:");
+					System.out.println("ans:1.cricket 2.hockey 3.badminton");
+					Scanner scTest3 = new Scanner(System.in);
+					int ansChoice3 = scTest2.nextInt();
+					if(ansChoice2 == 2) {
+						total = total+10;
+					}
+					gk_completed = true;
+					}else {
+						System.out.println("You have completed the test");
+					}
+			  break;
+
+			default:
+				System.out.println("you entered wrong choice");
+				break;
+			}
+			System.out.println("Do you want to cotinue");
+			Scanner doYouNeed=new Scanner(System.in);
+			doYou = doYouNeed.nextBoolean();
+			if(en_completed && ma_completed && gk_completed) {
+				doYou = false;
+			}
+		}while(doYou);
+		 int result=total;	
+		 if(result>70) {
+		 result=result+10;
+		}
+		else if(result==90) {
+			
+			System.out.println("you are selected");
+		}
+		else
+			System.out.println("try again");
+	}
+}
+C:\Users\Bharghavi\Desktop\java>java Exam
+welcome to online exam
+Enter the test number
+1
+Choice entered is 1
+welcome to english exam
+correct the spelling:
+ans:1.criket 2.cricket 3.crickt
+1
+correct the spelling:
+ans:1.spicial 2.spcial 3.special
+2
+correct the spelling:
+ans:1.great 2.grat 3.grant
+3
+Do you want to cotinue
+true
+welcome to online exam
+Enter the test number
+1
+Choice entered is 1
+You have completed the test
+Do you want to cotinue
+true
+welcome to online exam
+Enter the test number
+2
+Choice entered is 2
+welcome to maths exam
+who is father of maths:
+ans:1.sundar 2.williom 3.archimedes
+3
+ find 12*12:
+ans:1.144 2.176 3.229
+1
+who invented zero first in india:
+ans:1.varah 2.mayan 3.aryabatta
+2
+Do you want to cotinue
+true
+welcome to online exam
+Enter the test number
+3
+Choice entered is 3
+welcome to Gk exam
+who is indian PM:
+ans:1.nirmala 2.pranab 3.narendramodi
+1
+who is indian cricket team captain:
+ans:1.rohit 2.dhoni 3.virat
+2
+national sports?:
+ans:1.cricket 2.hockey 3.badminton
+3
+Do you want to cotinue
+false
+try again
+
+C:\Users\Bharghavi\Desktop\java
+
+
+
+2.ASSIGNMENT-2
+
+import java.util.Scanner;
+
+
+public class Assign2 {
+	public static void main(String []args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter details you want to store:");
+		int n=sc.nextInt();
+		int []id=new int [n];
+		String []name=new String[n];
+		float []salary=new float[n];
+		String[]desg=new String[n];
+	
+		for(int i=0;i<n;i++) {
+		System.out.println("enter id for employee"+(i+1));
+		id[i]=sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("enter name for employee"+(i+1));
+		name[i]=sc.nextLine();
+		
+		System.out.println("enter salary for employee"+(i+1));
+		salary[i]=sc.nextFloat();
+		sc.nextLine();
+		
+		System.out.println("enter id for employee"+(i+1));
+		id[i]=sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("enter desg for employee"+(i+1));
+		desg[i]=sc.nextLine();
+	    System.out.println("\n");
+	    
+
+		}
+		for(int l=0;l<n;l++) {
+			float hra,da,pf;
+			hra=salary[l]*0.1f;
+			da=salary[l]*0.07f;
+		     pf=salary[l]*0.05f;
+		     if(desg[l].equals("developer")) {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.1f);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee: " +(l+1));
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+
+		    	 }
+		     else if (desg[l].equals("manager")) {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.15f);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee: " +(l+1));
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+		    	 
+		     }
+		     else {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.05f);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee: " +(l+1));
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+		     }
+		
+			
+		}
+	}
+	
+
+}
+
+
+enter details you want to store:
+3
+enter id for employee1
+101
+enter name for employee1
+102
+enter salary for employee1
+15000
+enter id for employee1
+20000
+enter desg for employee1
+developer
+
+
+enter id for employee2
+102
+enter name for employee2
+bhargavi
+enter salary for employee2
+20000
+enter id for employee2
+101
+enter desg for employee2
+manager
+
+
+enter id for employee3
+103
+enter name for employee3
+siri
+enter salary for employee3
+11100
+enter id for employee3
+101
+enter desg for employee3
+manager
+
+
+
+
+details of employee: 1
+id=20000
+name=102
+salary=18300.0
+desg=developer
+
+
+details of employee: 2
+id=101
+name=bhargavi
+salary=25400.0
+desg=manager
+
+
+details of employee: 3
+id=101
+name=siri
+salary=14097.0
+desg=manager
+
+
+
+3.ASSIGNMENT-3
+
+
+import java.util.Scanner;
+
+public class Employee {
+Scanner sc=new Scanner(System.in);
+int n;
+Employee(int s)
+{
+	n=s;
+}
+int []id=new int[10];
+String []name=new String[n];
+float []salary=new float[n];
+String[]desg=new String[n];
+ 
+voi read() {
+	for(int i=0;i<n;i++) {
+		System.out.println("enter id for employee"+(i+1));
+		id[i]=sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("enter name for employee"+(i+1));
+		name[i]=sc.nextLine();
+		
+		System.out.println("enter salary for employee"+(i+1));
+		salary[i]=sc.nextFloat();
+		sc.nextLine();
+		
+		System.out.println("enter id for employee"+(i+1));
+		id[i]=sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("enter desg for employee"+(i+1));
+		desg[i]=sc.nextLine();
+	    System.out.println("\n");
+	    
+
+		}
+
+}
+void calsalary() {
+	for(int l=0;l<n;l++) {
+		float hra,da,pf;
+		hra=salary[l]*0.1f;
+		da=salary[l]*0.07f;
+	     pf=salary[l]*0.05f;
+	     salary[l]=salary[l]+hra+da-pf;
+	
+}
+}
+
+void bonus() {
+	for(int l=0;l<n;l++) {
+		salary[k]=salarycpy[k];
+		float hra,da,pf;
+		hra=salary[l]*0.1f;
+		da=salary[l]*0.07f;
+	     pf=salary[l]*0.05f;
+	     if(desg[l].equals("developer")) {
+	    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.1f);
+	     }
+	     else if (desg[l].equals("manager")) {
+	    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.15f);
+	     }
+	     
+
+	
+}
+}
+void display() {
+	for(int l=0;l<n;l++) {
+
+	 System.out.println("details of employee: " +(l+1));
+	 System.out.println("id="+id[l]);
+	 System.out.println("name="+name[l]);
+	 System.out.println("salary="+salary[l]);
+	 System.out.println("desg="+desg[l]);
+	
+}
+}
+}
+class EmployeeDetails{
+	public static void main(String []args) {
+		Scanner sc=new Scanner(System.in)
+				System.out.println("Enter no of records you want to enter");
+		int y=sc.nextInt();
+		Employee emp=new Employee(y);
+		emp.read();
+		emp.calsalary();
+		emp.bonus();
+		emp.display();
+		}
+}
+
+	}
+}
+
+OUTPUT:
+
+enter details you want to store:
+2
+enter id for employee1
+201
+enter name for employee1
+harish
+enter salary for employee1
+12000
+enter id for employee1
+201
+enter desg for employee1
+Developer
+
+
+enter id for employee2
+202
+enter name for employee2
+ramesh
+enter salary for employee2
+20000
+enter id for employee2
+202
+enter desg for employee2
+manager
+
