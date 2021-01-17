@@ -1,0 +1,206 @@
+Assignment-4
+
+
+import java.util.Scanner;
+  class Employe
+{
+	
+	int id;
+    String name;
+    float salary;
+    Scanner sc=new Scanner(System.in);
+	Address add = new Address();
+	void read () {
+		    System.out.println("enter id for employee");
+		 	id=sc.nextInt();
+			sc.nextLine();
+			
+			System.out.println("enter name for employee");
+			 name=sc.nextLine();
+			
+			System.out.println("enter salary for employee");
+			salary=sc.nextFloat();
+			
+		}
+
+	
+	void calsalary() {
+			float hra,da,pf;
+			hra=salary*0.1f;
+			da=salary*0.07f;
+		     pf=salary*0.05f;
+		     salary=salary+hra+da-pf;
+		
+	}
+	void display() {
+
+		 System.out.println("\n " );
+		 System.out.println("id="+id);
+		 System.out.println("name="+name);
+		 System.out.println("salary="+salary);
+		
+	}
+}
+
+class Manager extends Employe{
+	int numberofemployee;
+	void readmgr(){
+		System.out.println(" Enter number of employee");
+		numberofemployee=sc.nextInt();
+		add.readadd();
+		
+	}
+	void dismgr() {
+
+			 System.out.println("number of employee="+numberofemployee);
+			 add.disadd();
+			
+		}
+
+	}
+	class Programmer extends Employe{
+		String projname;
+		void readprog(){
+			sc.nextLine();
+			System.out.println("enter name of project");
+			projname=sc.nextLine();
+			add.readadd();
+			
+		}
+		void disprog() {
+				 System.out.println("project="+projname);
+				 add.readadd();
+				
+			}
+
+			
+		}
+	class Address{
+		int pin;
+		String state;
+		String city;
+		Scanner obj=new Scanner(System.in);
+		void readadd() {
+		  System.out.println("enter city");
+		 	city=obj.nextLine();
+			
+			System.out.println("enter state");
+			 state=obj.nextLine();
+			
+			System.out.println("enter pincode");
+			pin=obj.nextInt();
+		}
+			
+	void disadd() {
+		 System.out.println("city="+city);
+		 System.out.println("state="+state);
+		 System.out.println("pin="+pin);
+		
+	}
+	}
+
+			
+   class EmployeeTest{
+		 public static void main(String []args) {
+			 
+			System.out.println("manager details");
+			Manager mgr=new Manager();
+			mgr.read();
+			mgr.readmgr();
+			
+
+			System.out.println("programmer details");
+		
+			Programmer prg=new Programmer();
+			prg.read();
+			prg.readprog();
+			
+			mgr.calsalary();
+			prg.calsalary();
+			
+			mgr.display();
+			mgr.dismgr();
+			
+			prg.display();
+			prg.disprog();
+			
+		    Address add=new Address();
+		    add.readadd();
+		    add.disadd();
+			
+			
+			
+		}
+			
+   }
+
+OUTPUT
+
+
+
+
+C:\Users\Bharghavi\Desktop\java>javac EmployeeTest.java
+
+C:\Users\Bharghavi\Desktop\java>java EmployeeTest
+manager details
+enter id for employee
+1
+enter name for employee
+bhargavi
+enter salary for employee
+12000
+ Enter number of employee
+15
+enter city
+rjy
+enter state
+andhra
+enter pincode
+34526
+programmer details
+enter id for employee
+2
+enter name for employee
+siri
+enter salary for employee
+14000
+enter name of project
+Fs
+enter city
+hyd
+enter state
+telangana
+enter pincode
+45673
+
+ 
+id=1
+name=bhargavi
+salary=13440.0
+number of employee=15
+city=rjy
+state=andhra
+pin=34526
+
+ 
+id=2
+name=siri
+salary=15680.0
+project=Fs
+city=hyd
+state=telangana
+pin=45673
+enter city
+1232
+enter state
+243
+enter pincode
+4546
+city=1232
+state=243
+pin=4546
+
+
+
+C:\Users\Bharghavi\Desktop\java>
+	
