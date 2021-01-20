@@ -1,0 +1,14 @@
+My SQL Assignments
+1...>>Function 2 queries pending(Assignment-1)
+2...>> Assignment-2 completed
+
+JAVA Assignments
+
+1...>> completed name of assignment(examination)
+2...>> completed name of assignment(employee)
+3...>> completd name of assignment(Employee class)
+4...>> completed name of assignment(project)
+5...>>completed name of assignment(StudentTest)
+6...>> some errors in mini project(pending)
+7...>>completed name of assignment(String compare_to)
+
