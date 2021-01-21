@@ -1,0 +1,28 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.*;
+public class ByteWiseFileOpeation {
+
+	public static void main(String[] args)throws IOException {
+		
+		// TODO Auto-generated method stub
+		File file =new File("C:\\Users\\Bharghavi\\Documents\\java progrms\\target.txt");
+		FileInputStream fileStream = new FileInputStream(file);
+		InputStreamReader input = new InputStreamReader(fileStream);
+		BufferedReader reader=new BufferedReader(input);
+		String line;
+		int characterCount=0;
+		int countWord=0;
+		while((line=reader.readLine())!=null) {
+			characterCount +=line.length();
+			String[] wordList=line.split("\\s+");
+			countWord += wordList.length;
+		}
+		System.out.println(" total number of character count = "+ characterCount);
+	
+		System.out.println("File copied...");
+	}
+
+
+	}
+
