@@ -1,0 +1,91 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+public class ComparatorUsage{
+	public static void main(String []args) {
+		int n,value,id;
+		float salary;
+		String name;
+		boolean doYou=true;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter number of employee details you want to store");
+		n=sc.nextInt();
+		ArrayList<Employee> emp = new ArrayList<Employee>();
+		for(int i=0;i<n;i++) {
+			System.out.println("enter id");
+			id=sc.nextInt();
+			System.out.println("enter name");
+			name=sc.next();
+			System.out.println("enter salary");
+			salary=sc.nextFloat();
+			emp.add(new Employee(id,name,salary));
+		}
+		
+    do {
+
+    	System.out.println("enter which option you want");
+    	System.out.println("1.sort id in asc");
+    	System.out.println("2.Sort id in desc");
+    	System.out.println("3.sort name in asc");
+    	System.out.println("4.sort name in desc ");
+    	System.out.println("5.sort salary in asc");
+    	System.out.println("6.sort salary in desc");
+          value=sc.nextInt();
+          
+          switch(value) {
+     case 1:
+        	  Collections.sort(emp,new SortIdAsc());
+        	  Iterator<Employee> e1=emp.iterator();
+        	  while(e1.hasnext()) {
+        		  System.out.println(e1.next);
+
+        	  }
+        	  break;
+      case 2:
+        	  Collections.sort(emp,new SortIDsc());
+        	  Iterator<Employee> e2=emp.iterator();
+        	  while(e2.hasnext()) {
+        		  System.out.println(e2.next);
+
+        	  }
+        	  break;
+        	  
+       case 3:
+        	  Collections.sort(emp,new SortNameAsc());
+        	  Iterator<Employee> e3=emp.iterator();
+        	  while(e3.hasnext()) {
+        		  System.out.println(e3.next);
+
+        	  }
+        	  break;
+        	  
+       case 4:
+        	  Collections.sort(emp,new SortNameDsc());
+    	  Iterator<Employee> e4=emp.iterator();
+    	  while(e4.hasnext()) {
+    		  System.out.println(e4.next);
+
+    	  }
+    	      break;
+       case 5:
+        	  Collections.sort(emp,newSortSalaryAsc());
+        	  Iterator<Employee> e5=emp.iterator();
+        	  while(e5.hasnext()) {
+        		  System.out.println(e5.next);
+        	  }
+        	  break;
+       case 6:
+    	   Collections.sort(emp,newSortSalaryDsc());
+     	  Iterator<Employee> e6=emp.iterator();
+     	  while(e6.hasnext()) {
+     		  System.out.println(e6.next);
+     	  }
+     	      break;
+       default:
+    	     System.out.println("enter valid option");
+    	     break;
+         
+
+    }
+    }while(doYou);
+	}
+}
