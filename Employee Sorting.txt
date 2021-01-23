@@ -1,0 +1,270 @@
+
+import java.util.Scanner;
+
+
+import bean.Employee;
+import bean.SortIdAsc;
+import bean.SortIdDes;
+import bean.SortNameAsc;
+import bean.SortNameDsc;
+import bean.SortSalAsc;
+import bean.SortSalDsc;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+
+public class ComparatorUsage{
+	public static void main(String []args) {
+		int n,value,id;
+		float salary;
+		String name;
+		boolean doYou=true;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter number of employee details you want to store");
+		n=sc.nextInt();
+		ArrayList<Employee> emp = new ArrayList<Employee>();
+		for(int i=0;i<n;i++) {
+			System.out.println("enter id");
+			id=sc.nextInt();
+			System.out.println("enter name");
+			name=sc.next();
+			System.out.println("enter salary");
+			salary=sc.nextFloat();
+			emp.add(new Employee(id,name,salary));
+		}
+		
+    do {
+
+    	System.out.println("enter which option you want");
+    	System.out.println("1.sort id in asc");
+    	System.out.println("2.Sort id in desc");
+    	System.out.println("3.sort name in asc");
+    	System.out.println("4.sort name in desc ");
+    	System.out.println("5.sort salary in asc");
+    	System.out.println("6.sort salary in desc");
+          value=sc.nextInt();
+          
+          switch(value) {
+     case 1:
+        	  Collections.sort(emp,new SortIdDes());
+        	  Iterator<Employee> e1=emp.iterator();
+        	  while(e1.hasNext()) {
+        		  System.out.println(e1.next());
+
+        	  }
+        	  break;
+      case 2:
+        	  Collections.sort(emp,new SortIdDes());
+        	  Iterator<Employee> e2=emp.iterator();
+        	  while(e2.hasNext()) {
+        		  System.out.println(e2.next());
+
+        	  }
+        	  break;
+        	  
+       case 3:
+        	  Collections.sort(emp,new SortNameAsc());
+        	  Iterator<Employee> e3=emp.iterator();
+        	  while(e3.hasNext()) {
+        		  System.out.println(e3.next());
+
+        	  }
+        	  break;
+        	  
+       case 4:
+        	  Collections.sort(emp,new SortNameDsc());
+    	      Iterator<Employee> e4=emp.iterator();
+    	  while(e4.hasNext()) {
+    		  System.out.println(e4.next());
+
+    	  }
+    	      break;
+       case 5:
+        	  Collections.sort(emp,new SortSalAsc());
+        	  Iterator<Employee> e5=emp.iterator();
+        	  while(e5.hasNext()) {
+        		  System.out.println(e5.next());
+        	  }
+        	  break;
+       case 6:
+    	   Collections.sort(emp,new SortSalDsc());
+     	  Iterator<Employee> e6=emp.iterator();
+     	  while(e6.hasNext()) {
+     		  System.out.println(e6.next());
+     	  }
+     	      break;
+       default:
+    	     System.out.println("enter valid option");
+    	     break;
+         
+
+    }
+    }while(doYou);
+	}
+}
+
+
+
+package bean;
+public class Employee {
+ /*public Employee(int id, String name, float salary) {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+ */
+private int id;
+ private String name;
+ private float salary;
+ 
+ 
+public Employee(int id, String name,  float salary) {
+
+	this.id= id;
+	this.name = name;
+	this.salary = salary;
+	
+}
+	
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public float getSalary() {
+	return salary;
+}
+public void setSalary(int salary) {
+	this.salary = salary;
+}
+@Override
+public String toString() {
+	return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+}
+ 
+
+}
+
+
+package bean;
+
+import java.util.Comparator;
+
+public class SortIdAsc implements Comparator<Employee>{
+	
+	public int compare(Employee o1,Employee o2) {
+		return o1.getId()-o2.getId();
+	}
+}
+
+
+package bean;
+import java.util.Comparator;
+	
+	public class SortIdDes implements Comparator<Employee>{
+		
+		public int compare(Employee o1,Employee o2) {
+			return o1.getId()-o2.getId();
+		}
+	}
+
+
+package bean;
+import java.util.Comparator;
+
+public class SortNameAsc implements Comparator<Employee>{
+	public int compare(Employee o1,Employee o2) {
+		return o1.getId()-o2.getId();
+	
+}
+}
+
+
+package bean;
+import java.util.Comparator;
+
+	public class SortNameDsc implements Comparator<Employee>{
+		public int compare(Employee o1,Employee o2) {
+			return o1.getId()-o2.getId();
+		
+	}
+	}
+
+
+package bean;
+import java.util.Comparator;
+
+	public class SortSalAsc implements Comparator<Employee>{
+		public int compare(Employee o1,Employee o2) {
+			return o1.getId()-o2.getId();
+		
+	}
+	}
+
+
+
+package bean;
+import java.util.Comparator;
+
+
+	public class SortSalDsc implements Comparator<Employee>{
+		public int compare(Employee o1,Employee o2) {
+			return o1.getId()-o2.getId();
+		
+	}
+	}
+
+
+
+
+
+
+enter number of employee details you want to store
+2
+enter id
+2
+enter name
+suresh
+enter salary
+12000
+enter id
+3
+enter name
+ramesh
+enter salary
+3000
+enter which option you want
+1.sort id in asc
+2.Sort id in desc
+3.sort name in asc
+4.sort name in desc 
+5.sort salary in asc
+6.sort salary in desc
+1
+Employee [id=2, name=suresh, salary=12000.0]
+Employee [id=3, name=ramesh, salary=3000.0]
+enter which option you want
+1.sort id in asc
+2.Sort id in desc
+3.sort name in asc
+4.sort name in desc 
+5.sort salary in asc
+6.sort salary in desc
+6
+Employee [id=2, name=suresh, salary=12000.0]
+Employee [id=3, name=ramesh, salary=3000.0]
+enter which option you want
+1.sort id in asc
+2.Sort id in desc
+3.sort name in asc
+4.sort name in desc 
+5.sort salary in asc
+6.sort salary in desc
