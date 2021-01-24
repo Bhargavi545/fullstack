@@ -1,0 +1,55 @@
+import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputSteam;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+
+public class ByteFileOperation  {
+
+	public static void main(String[] args)throws Exception {
+		
+		// TODO Auto-generated method stub
+		FileInputStream fis = new FileInputStream("C:\\Users\\Bharghavi\\Documents\\java progrms\\Bhargavi1.txt");
+		FileOutputStream fos= new FileOutputStream("C:\\Users\\Bharghavi\\Documents\\java progrms\\target1.txt");
+		
+
+		boolean space=true;
+		boolean dot=true;
+		
+		int ch;
+		int no=0;
+		while((ch = fis.read())!=-1)
+		{
+		   if(Character.isLetter((char)(ch)))
+		   {
+			   if(Character.isUpperCase((char)ch)) {
+				   ch = Character.toLowerCase((char)ch);
+				   
+			   }
+			   else if(space && dot) {
+				   ch =Character.toUpperCase((char)ch);
+				   space=false;
+				   dot=false;
+			   }
+			 fos.write(ch);
+		   }
+		else if(ch == '.') {
+			   dot=true;
+			    fos.write(ch);   
+			   
+			    
+		   }
+		else {
+			fos.write(ch);
+			space=true;
+		}
+		   
+		}
+		fos.flush();
+		System.err.println("file ok");
+	}
+}
+
+
