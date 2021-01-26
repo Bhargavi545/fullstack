@@ -1,0 +1,235 @@
+package bean;
+
+public class Product {
+	private int id;
+	private String name;
+	private int price;
+	public Product(int id, String name, int price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public Product() {
+		
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+}
+
+
+
+
+package Service;
+import bean.Product;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+
+public class ProductService {
+public static int id;
+public String name;
+public int price;
+int size;
+Product[] product=new Product[10];
+Scanner sc=new Scanner(System.in);
+ArrayList<Product >p=new ArrayList<Product>();
+public void add(int id,String name,int price)
+{
+	
+	p.add(new Product(id,name,price));
+	
+}
+
+
+public void update(int num,int price)
+{
+	for(int i=0;i<p.size();i++)
+	{
+		Product pp = p.get(i);
+		if(pp.getId()==num)
+		{
+			//pp.setName(name);
+			pp.setPrice(price);
+			
+		}
+	}
+}
+public void delete(int id)
+{
+	for(Product pp : p)
+	{
+		 if(pp.getId()==id)
+		 {
+			 p.remove(pp);
+			 break;
+		 }
+	}
+	//Product pp = p.get(id);
+	
+	
+}
+/*//public void display( )
+{
+	for(Product pp : p)
+	{
+		pp.getId();
+		pp.getName();
+		pp.getPrice();		
+	}
+	
+}*/
+public ArrayList<Product>display(){
+	return p;
+}
+public int retrieve(int id)
+{
+	int temp=0;
+	for(Product pp : p)
+	{
+		 if(pp.getId()==id)
+		 {
+			 temp = pp.getPrice();
+			 break;
+		 }
+	}
+	return temp;
+	
+	
+}
+
+}
+
+
+
+package main;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import Service.*;
+import bean.Product;
+
+public class ProductOperation{
+
+	public static void main(String[] args) {
+
+		Scanner sc=new Scanner(System.in);
+		
+		int ch,size;
+		int id;
+		String name;
+		int price;
+		int j;
+		boolean doYou=true;
+		System.out.println("Enter no of products you want");
+		size=sc.nextInt();
+		ProductService pt=new ProductService();
+		ArrayList<Product >p=new ArrayList<Product>();
+		    do
+			{
+				System.out.println("Enter your option:");
+				System.out.println("1. Add");
+				System.out.println("2. update");
+				System.out.println("3. delete");
+				System.out.println("4. display");
+				System.out.println("5. retrive");
+				ch=sc.nextInt();
+			switch (ch)
+			{  
+			case 1:
+				System.out.println("1. Add");
+				for(int i=0;i<size;i++)
+				{
+					System.out.println("Enter the pid");
+					id=sc.nextInt();
+					System.out.println("Enter the pname");
+					sc.nextLine();
+					name=sc.nextLine();
+					System.out.println("Enter the price");
+					price=sc.nextInt();
+					pt.add(id, name, price);
+					System.out.println();
+
+					}
+				
+				break;
+			case 2:
+				System.out.println("2. update");
+				System.out.println("Enter the pid");
+				id=sc.nextInt();
+				name=sc.nextLine();
+				System.out.println("Enter the price");
+				price=sc.nextInt();
+				pt.update(id, price);
+
+				System.out.println();
+				break;
+			case 3:
+				System.out.println("3. delete");
+				System.out.println("Enter the pid");
+				id=sc.nextInt();
+				pt.delete(id);
+				System.out.println("Product Deleted "+id);
+				break;
+			case 4:
+				System.out.println("4.display");
+				p=pt.display();
+				for(Product a:p) {
+					System.out.println("id and name and price"+a);
+				}
+				
+				System.out.println();
+				break;
+			case 5:
+				System.out.println("5.retrive");
+				System.out.println("Enter the pid");
+				id=sc.nextInt();
+				int temp = pt.retrieve(id);
+				System.out.println(" The price " +temp);
+				System.out.println(pt);
+				break;
+		   
+		   default:
+			   System.out.println("Invalid  option:");
+			 
+			   
+			}
+		
+	
+
+			}while(doYou);
+
+ 
+
+
+	}
+}
