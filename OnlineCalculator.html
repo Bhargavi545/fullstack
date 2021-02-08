@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/JavaScript">
+    function sum(){
+           var a=document.getElementById("num1").value;
+           var b=document.getElementById("num2").value;
+           var c=eval(a)+eval(b);
+           document.getElementById("res1").value=c;
+    }
+
+   function sub(){
+           var a=document.getElementById("num1").value;
+           var b=document.getElementById("num2").value;
+        var c=eval(a)+eval(b);
+        document.getElementById("res1").value=d;
+   }
+       </script>
+       </head>
+       <body>
+    <form action=" " method="get">
+        <label for="">1stNumber</label>
+        <input type="text" name="num1" id="num1"/><br/>
+        <label for="">2ndNumber</label>
+        <input type="text" name="num2" id="num2"/></br>
+        <label>result</label>
+        <input type="test" id="res1" value=""/></br>
+        <button type="button" onclick="sum()">add</button>
+        <button type="button"  onclick="sub()">sub</button>
+    
+    </form>
+
+</body>
+</html>
+
